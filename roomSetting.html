@@ -1,0 +1,318 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- DatePicker -->
+
+    <!-- DatePicker -->
+    
+</head>
+<style>
+    td {vertical-align: middle !important;}
+    .square-button {
+        width: 200px;
+        height: 200px;
+        border-radius: 25px;
+        padding: 25px;
+        text-align: center;
+    }
+</style>
+<div id="content"></div>
+
+<script>
+    let params = new URLSearchParams(window.location.search)
+    var room_id = params.get('room_id');
+    const token = localStorage.getItem('token');
+
+    axios.get("https://web-intractive-system-app-api.onrender.com/room/get/"+room_id, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          .then(response => {
+
+            var restrictedWord = JSON.stringify(response.data['restricted_word']);
+            restrictedWord = restrictedWord.replace(/["\\\[\]]/g, "");
+            restrictedWord = restrictedWord.replace(/,/g, "\n");
+            restrictedWord = restrictedWord.replace(/u0027/g, "'")
+            
+            var defaultGreeting = JSON.stringify(response.data['default_greeting']);
+            defaultGreeting = defaultGreeting.replace(/["\\\[\]]/g, "");
+            defaultGreeting = defaultGreeting.replace(/\|/g, '\n');
+            defaultGreeting = defaultGreeting.replace(/u0027/g, "'")
+            
+            document.getElementById("content").innerHTML = "<h2>Room Setting</h2>";
+            var content = '<div class="panel panel-default"><table class="table table-sm table-borderless">';
+            content += '<tr><td>Room Name : </td><td><input id="roomName" class="form-control" type="text" value="'+response.data['room_name']+'"/></td></tr>';
+            content += '<tr><td>Room Description : </td><td><input id="roomDescription" class="form-control" type="text" value="'+response.data['room_description']+'"/></td></tr>';
+            content += '<tr><td>Restricted Word : </td><td><textarea id="restrictedWord" class="form-control" style="height:150px">'+restrictedWord+'</textarea></td></tr>';
+            content += '<tr><td>Default Greeting : </td><td><textarea id="defaultGreeting" class="form-control" style="height:150px">'+defaultGreeting+'</textarea></td></tr>';
+            content += '<tr><td>Auto Start : </td>';
+
+            content += `<tr>
+            <div class='input-group date' id='datetimepicker_start'>
+               <input type='text' class="form-control" />
+               <span class="input-group-addon">
+               <span class="glyphicon glyphicon-calendar"></span>
+               </span>
+            </div> </td>
+            `
+
+            content += `<tr>
+            <div class='input-group date' id='datetimepicker_end'>
+               <input type='text' class="form-control" />
+               <span class="input-group-addon">
+               <span class="glyphicon glyphicon-calendar"></span>
+               </span>
+            </div> </td>
+            `
+
+            content += '</table></div><br><br>';
+            content += '<div class="panel panel-default"><table class="table table-sm table-borderless">';
+                
+            content += '<br><br><h2>Big Screen Setting</h2>';
+            content += '<tr><td>Mode : </td>';
+            content += `<td>
+
+            <input id="gameModeSelect" type="hidden" value="`+response.data['game_mode']+`" />
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <input id="game_mode1" type="radio" onclick="UpdateBigScreenSetting('gameModeSelect', '1')" class="btn-check btn-outline-primary btn-lg square-button"> Mode 1 </input>
+                <input id="game_mode2" type="radio" onclick="UpdateBigScreenSetting('gameModeSelect', '2')" class="btn-check btn-outline-primary btn-lg square-button"> Mode 2 </input>
+                <input id="game_mode3" type="radio" onclick="UpdateBigScreenSetting('gameModeSelect', '3')" class="btn-check btn-outline-primary btn-lg square-button"> Mode 3 </input>
+            </div>
+
+            </td></tr>`;
+            content += '<tr><td>Theme : </td>';
+            content += ` <td>
+            
+            <input id="themeSelect" type="hidden" value="`+response.data['theme_index']+`" />
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <input id="theme_mode1" type="radio" onclick="UpdateBigScreenSetting('themeSelect', '1')" class="btn-check btn-outline-primary btn-lg square-button"> Theme 1 </input>
+                <input id="theme_mode2" type="radio" onclick="UpdateBigScreenSetting('themeSelect', '2')" class="btn-check btn-outline-primary btn-lg square-button"> Theme 2 </input>
+                <input id="theme_mode3" type="radio" onclick="UpdateBigScreenSetting('themeSelect', '3')" class="btn-check btn-outline-primary btn-lg square-button"> Theme 3 </input>
+            </div>
+
+            </td></tr>`;
+            content += '<tr><td>Layout : </td>';
+            content += ` <td>
+
+            <input id="layoutSelect" type="hidden" value="`+response.data['layout_direction']+`" />
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <input id="layout1" type="radio" onclick="UpdateBigScreenSetting('layoutSelect', '1')" class="btn-check btn-outline-primary btn-lg square-button"> Layout 1 </input>
+                <input id="layout2" type="radio" onclick="UpdateBigScreenSetting('layoutSelect', '2')" class="btn-check btn-outline-primary btn-lg square-button"> Layout 2 </input>
+                <input id="layout3" type="radio" onclick="UpdateBigScreenSetting('layoutSelect', '3')" class="btn-check btn-outline-primary btn-lg square-button"> Layout 3 </input>
+            </div>
+
+            </td></tr>`;
+            content += '</table></div><br><br>';
+            
+            switch(response.data['game_mode'])
+            {
+                case 1:
+                    document.getElementById("game_mode1").checked = true;
+                    break;
+                case 2:
+                    document.getElementById("game_mode2").checked = true;
+                    break;
+                case 3:
+                    document.getElementById("game_mode3").checked = true;
+                    break;
+            }
+
+            switch(response.data['theme_index'])
+            {
+                case 1:
+                    document.getElementById("theme_mode1").checked = true;
+                    break;
+                case 2:
+                    document.getElementById("theme_mode2").checked = true;
+                    break;
+                case 3:
+                    document.getElementById("theme_mode3").checked = true;
+                    break;
+            }
+
+            switch(response.data['layout_direction'])
+            {
+                case 1:
+                    document.getElementById("layout1").checked = true;
+                    break;
+                case 2:
+                    document.getElementById("layout2").checked = true;
+                    break;
+                case 3:
+                    document.getElementById("layout3").checked = true;
+                    break;
+            }
+
+            axios.get("https://web-intractive-system-app-api.onrender.com/roomSetting/get/"+room_id, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+                .then(response => {
+
+                    content += "<br><br><h2>Mobile View Setting</h2>";
+                    content += '<div class="panel panel-default"><table class="table table-sm table-borderless">';
+                    content += '<tr><td>Background Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`background_img`)">X</button><img id="background_img_holder" width=120 height=120 src='+response.data['background_img']+'><input class="form-control form-control-sm" id="background_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="background_img_base64String" value="'+response.data['background_img']+'" type="hidden"/></td></div></tr>';
+                    content += '<tr><td>App Logo Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`app_logo_img`)">X</button><img id="app_logo_img_holder" height=120 src='+response.data['app_logo_img']+'><input class="form-control form-control-sm" id="app_logo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="app_logo_img_base64String" value="'+response.data['app_logo_img']+'" type="hidden"/></td></div></tr>';
+                    content += '<tr><td>Cover Photo Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`cover_photo_img`)">X</button><img id="cover_photo_img_holder" height=120 src='+response.data['cover_photo_img']+'><input class="form-control form-control-sm" id="cover_photo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="cover_photo_img_base64String" value="'+response.data['cover_photo_img']+'" type="hidden"/></td></div></tr>';
+                    content += '<tr><td>Welcome Text Color : </td>';
+                    content += '<td><input id="welcome_text_color" type="color" value="'+response.data['welcome_text_color']+'"></td></tr>';
+                    content += '<tr><td>Name Icon Color : </td>';
+                    content += '<td><input id="name_icon_color" type="color" value="'+response.data['name_icon_color']+'"></td></tr>';
+                    content += '<tr><td>Dropdown Highlight Color : </td>';
+                    content += '<td><input id="dropdown_highlight_color" type="color" value="'+response.data['dropdown_highlight_color']+'"></td></tr>';
+                    content += '<tr><td>Greeting Scroll Background Color : </td>';
+                    content += '<td><input id="greeting_scroll_background_color" type="color" value="'+response.data['greeting_scroll_background_color']+'"></td></tr>';
+                    content += '<tr><td>Submit Button Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height=120 src='+response.data['submit_button']+'><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" value='+response.data['submit_button']+' type="hidden"/></td></div></tr>';
+                    content += '</table></div>';
+                    
+                    document.getElementById("content").innerHTML += content;
+
+                    if(document.getElementById("background_img_holder").src == "https://weddingappcms.onrender.com/null")
+                    {
+                        const dataTransfer = new DataTransfer();
+                        const myFile = new File(['background_img'], 'bg1.png', {
+                            type: 'image/png',
+                        });
+                        dataTransfer.items.add(new File());
+
+                        document.getElementById("background_img_holder").src = "bg1.png";
+                        document.getElementById("background_img").files = dataTransfer.files;
+                    }
+
+                    if(document.getElementById("app_logo_img_holder").src == "https://weddingappcms.onrender.com/null")
+                    {
+                        document.getElementById("app_logo_img_holder").src = "No_Image_Available.jpg";
+                    }
+
+                    if(document.getElementById("cover_photo_img_holder").src == "https://weddingappcms.onrender.com/null")
+                    {
+                        const dataTransfer = new DataTransfer();
+                        const myFile = new File(['cover_photo'], 'mobile_event pic.png', {
+                            type: 'image/png',
+                        });
+                        dataTransfer.items.add(new File());
+
+                        document.getElementById("cover_photo_img_holder").src = "mobile_event pic.png";
+                        document.getElementById("cover_photo_img").files = dataTransfer.files;
+                    }
+
+                    if(document.getElementById("submit_button_img_holder").src == "https://weddingappcms.onrender.com/null")
+                    {
+                        document.getElementById("submit_button_img_holder").src = "mobile_send btn.png";
+
+                        const dataTransfer = new DataTransfer();
+                        const myFile = new File(['submit_button'], 'mobile_send btn.png', {
+                            type: 'image/png',
+                        });
+                        dataTransfer.items.add(new File());
+
+                        document.getElementById("submit_button_img_holder").src = "mobile_send btn.png";
+                        document.getElementById("submit_button_img").files = dataTransfer.files;
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    
+
+    function UpdateBigScreenSetting(name, value)
+    {
+        document.getElementById(name).value = value;
+        document.getElementById(name).checked = true;
+    }
+
+    function UpdateRoomSetting()
+    {
+        var restrictedWord = document.getElementById("restrictedWord").value.split('\n');
+        var defaultGreeting = document.getElementById("defaultGreeting").value.split('\n');
+        restrictedWord = restrictedWord.toString().replace(/'/g, "u0027");
+        defaultGreeting = defaultGreeting.toString().replace(/'/g, "u0027");
+        restrictedWord = restrictedWord.toString().replace(/\.,/g, ".|");
+        defaultGreeting = defaultGreeting.toString().replace(/\.,/g, ".|");
+        restrictedWord = restrictedWord.toString().replace(/!,/g, "!|");
+        defaultGreeting = defaultGreeting.toString().replace(/!,/g, "!|");
+
+        axios.post("https://web-intractive-system-app-api.onrender.com/room/update/"+room_id, {
+            roomName : document.getElementById("roomName").value,
+            roomDescription : document.getElementById("roomDescription").value,
+            restrictedWord : JSON.stringify(restrictedWord),
+            defaultGreeting : JSON.stringify(defaultGreeting),
+            gameMode : document.getElementById("gameModeSelect").value,
+            themeIndex : document.getElementById("themeSelect").value,
+            layoutDirection : document.getElementById("layoutSelect").value,
+        }, {
+        headers: { Authorization: `Bearer ${token}` }
+        })
+             .then(response => {
+                axios.post("https://web-intractive-system-app-api.onrender.com/roomSetting/update/"+room_id, {
+                    backgroundImg : document.getElementById("background_img_base64String").value,
+                    appLogoImg : document.getElementById("app_logo_img_base64String").value,
+                    coverPhotoImg : document.getElementById("cover_photo_img_base64String").value,
+                    welcomeTextColor : document.getElementById("welcome_text_color").value,
+                    nameIconColor : document.getElementById("name_icon_color").value,
+                    dropdownHighlightColor : document.getElementById("dropdown_highlight_color").value,
+                    greetingScrollBackgroundColor : document.getElementById("greeting_scroll_background_color").value,
+                    submitButton : document.getElementById("submit_button_img_base64String").value,
+                }, {
+                headers: { Authorization: `Bearer ${token}` }
+                })
+                    .then(response2 => {
+                        window.parent.hideModal();
+                })
+                    .catch(error => {
+                    console.log(error);
+                });
+        })
+             .catch(error => {
+             console.log(error);
+        });
+    }
+
+    function displayUploadedImage(element) {
+        var img = element.parentElement.childNodes[1];
+        img.src = URL.createObjectURL(element.files[0]);
+        element.parentElement.appendChild(img);
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64String = event.target.result
+            var elementName = element.id+"_base64String";
+            var elementImageHolder = element.id+"_holder";
+            document.getElementById(elementName).value = base64String;
+            document.getElementById(elementImageHolder).src = base64String;
+        };
+        reader.readAsDataURL(document.getElementById(element.id).files[0]);
+    }
+
+    function RemoveImg(tag)
+    {
+        var holder = tag+"_holder";
+        var base64String = tag+"_base64String";
+
+        document.getElementById(base64String).value = "";
+        document.getElementById(holder).src = "No_Image_Available.jpg";
+    }
+</script>
+
+<script>
+    $(function () {
+        $('#datetimepicker_start').datetimepicker();
+        $('#datetimepicker_end').datetimepicker();
+    });
+</script>

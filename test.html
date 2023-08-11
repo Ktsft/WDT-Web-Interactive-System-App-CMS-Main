@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+    <script src="jquery-3.6.3.min.js"></script>
+    <script>
+       window.onload=function() {
+            function readFile() {
+                if (!this.files || !this.files[0]) return;
+                    
+                const FR = new FileReader();
+                    
+                FR.addEventListener("load", function(evt) {
+                    document.querySelector("#b64").textContent = evt.target.result;
+                    ConvertIntoImage(evt.target.result);
+                }); 
+                    
+                FR.readAsDataURL(this.files[0]);
+            }
+
+            document.querySelector("#inp").addEventListener("change", readFile);
+       }
+
+        function ConvertIntoImage(base64) {
+            var newImage = document.createElement('img');
+            newImage.src = base64;
+            newImage.width = newImage.height = "80";
+            document.querySelector('#imageContainer').innerHTML = newImage.outerHTML;//where to insert your image
+        }
+    </script>
+</head>
+<div class="container" id="container">
+	<input id="inp" type="file">
+    <p id="b64"></p>
+    <div id="imageContainer">
+    </div>
+</div>
+</html>
+
