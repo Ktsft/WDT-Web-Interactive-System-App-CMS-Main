@@ -141,6 +141,9 @@
       
       registerButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
 
+      console.log("this is the password: ", password);
+      console.log("this is the confirm password: ", confirmPassword);
+
         if(password == confirmPassword)
         {
           axios.post("https://web-interactive-system-app-cms.onrender.com/user/create", {
@@ -154,8 +157,9 @@
             'Content-Type': 'application/json',
           }})
           .then(response => {
+              console.log("what is the response: ", response);
               showModal(response.data)
-              window.location.href = 'login.html';
+              // window.location.href = 'login.html';
           })
           .catch(error => {
               console.log(error.response.data);
