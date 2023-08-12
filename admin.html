@@ -288,7 +288,7 @@
         
         function GetRoomList()
         {
-          axios.get("https://web-intractive-system-app-api.onrender.com/room/get", {
+          axios.get("https://web-interactive-system-app-cms.onrender.com/room/get", {
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response => {
@@ -312,7 +312,7 @@
                   {
                     if(response.data[i]['end_date'] <= Math.floor(Date.now() / 1000))
                     {
-                      axios.post("https://web-intractive-system-app-api.onrender.com/room/toggle/"+response.data[i]['id'], {}, {
+                      axios.post("https://web-interactive-system-app-cms.onrender.com/room/toggle/"+response.data[i]['id'], {}, {
                         headers: { Authorization: `Bearer ${token}` }
                       })
                       .then(response => {
@@ -354,7 +354,7 @@
 
         function ToggleRoomStatus(room_id)
         {
-          axios.post("https://web-intractive-system-app-api.onrender.com/room/toggle/"+room_id, {}, {
+          axios.post("https://web-interactive-system-app-cms.onrender.com/room/toggle/"+room_id, {}, {
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response => {
@@ -373,7 +373,7 @@
 
         function AddTime(room_id)
         {
-          axios.post("https://web-intractive-system-app-api.onrender.com/room/addTime/"+room_id, {
+          axios.post("https://web-interactive-system-app-cms.onrender.com/room/addTime/"+room_id, {
           }, {
             headers: { Authorization: `Bearer ${token}` }
           })
@@ -406,7 +406,7 @@
 
         function DeleteRoom(room_id)
         {
-          axios.post("https://web-intractive-system-app-api.onrender.com/room/delete/"+room_id, {}, {
+          axios.post("https://web-interactive-system-app-cms.onrender.com/room/delete/"+room_id, {}, {
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response => {

@@ -33,7 +33,7 @@
     var room_id = params.get('room_id');
     const token = localStorage.getItem('token');
 
-    axios.get("https://web-intractive-system-app-api.onrender.com/room/get/"+room_id, {
+    axios.get("https://web-interactive-system-app-cms.onrender.com/room/get/"+room_id, {
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response => {
@@ -152,7 +152,7 @@
                     break;
             }
 
-            axios.get("https://web-intractive-system-app-api.onrender.com/roomSetting/get/"+room_id, {
+            axios.get("https://web-interactive-system-app-cms.onrender.com/roomSetting/get/"+room_id, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 .then(response => {
@@ -248,7 +248,7 @@
         restrictedWord = restrictedWord.toString().replace(/!,/g, "!|");
         defaultGreeting = defaultGreeting.toString().replace(/!,/g, "!|");
 
-        axios.post("https://web-intractive-system-app-api.onrender.com/room/update/"+room_id, {
+        axios.post("https://web-interactive-system-app-cms.onrender.com/room/update/"+room_id, {
             roomName : document.getElementById("roomName").value,
             roomDescription : document.getElementById("roomDescription").value,
             restrictedWord : JSON.stringify(restrictedWord),
@@ -260,7 +260,7 @@
         headers: { Authorization: `Bearer ${token}` }
         })
              .then(response => {
-                axios.post("https://web-intractive-system-app-api.onrender.com/roomSetting/update/"+room_id, {
+                axios.post("https://web-interactive-system-app-cms.onrender.com/roomSetting/update/"+room_id, {
                     backgroundImg : document.getElementById("background_img_base64String").value,
                     appLogoImg : document.getElementById("app_logo_img_base64String").value,
                     coverPhotoImg : document.getElementById("cover_photo_img_base64String").value,
