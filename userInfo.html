@@ -18,7 +18,7 @@
     const token = localStorage.getItem('token');
     var decoded_token = jwt_decode(token);
 
-    axios.get("https://web-intractive-system-app-api.onrender.comuser/get/"+decoded_token.userId,
+    axios.get("https://web-intractive-system-app-api.onrender.com/user/get/"+decoded_token.userId,
     {headers: { Authorization: `Bearer ${token}` }})
           .then(response => {
             var content = '<table class="table table-sm table-borderless w-auto">';
@@ -37,7 +37,7 @@
     
     function ChangePassword()
     {
-        axios.post("https://web-intractive-system-app-api.onrender.comuser/changePassword", {
+        axios.post("https://web-intractive-system-app-api.onrender.com/user/changePassword", {
             password : document.getElementById("password").value,
             new_password : document.getElementById("newPassword").value,
         }, {

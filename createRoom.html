@@ -19,7 +19,7 @@
     var defaultGreeting = "";
     const token = localStorage.getItem('token');
 
-    axios.get("https://web-intractive-system-app-api.onrender.comget/defaultRestrictWord")
+    axios.get("https://web-intractive-system-app-api.onrender.com/get/defaultRestrictWord")
           .then(response => {
             for(var i = 0; i < Object.keys(response.data).length; i++)
             {
@@ -29,7 +29,7 @@
                 defaultRestrictedWord += "\n";
             }
 
-            axios.get("https://web-intractive-system-app-api.onrender.comget/defaultGreeting")
+            axios.get("https://web-intractive-system-app-api.onrender.com/get/defaultGreeting")
                  .then(response => {
                     for(var i = 0; i < Object.keys(response.data).length; i++)
                     {
@@ -85,7 +85,7 @@
         defaultGreeting = defaultGreeting.toString().replace(/!,/g, "!|");
         var decoded_token = jwt_decode(token);
 
-        axios.post("https://web-intractive-system-app-api.onrender.comroom/create", {
+        axios.post("https://web-intractive-system-app-api.onrender.com/room/create", {
           roomName : document.getElementById("roomName").value,
           roomDescription : document.getElementById("roomDescription").value,
           remainingDuration :0,

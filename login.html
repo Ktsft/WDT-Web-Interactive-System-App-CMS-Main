@@ -113,7 +113,7 @@
 
         loginButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
 
-        axios.post("https://web-intractive-system-app-api.onrender.comuser/login", {
+        axios.post("https://web-intractive-system-app-api.onrender.com/user/login", {
             email: email,
             password: password
         },
@@ -146,7 +146,7 @@
 
         if(password == confirmPassword)
         {
-          axios.post("https://web-intractive-system-app-api.onrender.comuser/create", {
+          axios.post("https://web-intractive-system-app-api.onrender.com/user/create", {
             email: email,
             username: username,
             password: password
