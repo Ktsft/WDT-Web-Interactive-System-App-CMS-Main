@@ -112,15 +112,13 @@
 
     // Function to show the modal dialog
     function showModal(message) {
-
+        console.log("this  is the message: ", message)
         if(message === "Please fill up the blank!" || message === "Password not match! Please try again ")
         {
             modalTitle.innerText = "Alert";
 
         }else if(message === "Register account successfully"){
-
             modalTitle.innerText = "Success";
-
         }
 
         modalMessage.innerText = message;
