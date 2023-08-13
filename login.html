@@ -118,7 +118,9 @@
     // Event listener for the close button
     closeButton.addEventListener('click', () =>{
       hideModal
-      location.reload();
+      location.reload = () => {
+        ShowSignUp();
+      };
     });
     
     loginButton.addEventListener("click", () => {
