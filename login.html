@@ -116,7 +116,10 @@
     }
 
     // Event listener for the close button
-    closeButton.addEventListener('click', hideModal);
+    closeButton.addEventListener('click', () =>{
+      hideModal
+      location.reload();
+    });
     
     loginButton.addEventListener("click", () => {
     const email = document.getElementById("sign-in-email").value;
