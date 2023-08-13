@@ -116,11 +116,16 @@
     }
 
     // Event listener for the close button
-    closeButton.addEventListener('click', () =>{
-      hideModal
-      ShowSignUp();
-      location.reload();
+    closeButton.addEventListener('click', () => {
+      hideModal();
+      location.href = window.location.pathname + "?reload=true";
     });
+
+    // Check for the "reload" query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reload') === 'true') {
+      ShowSignUp();
+    }
     
     loginButton.addEventListener("click", () => {
     const email = document.getElementById("sign-in-email").value;
