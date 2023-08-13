@@ -38,12 +38,28 @@
       </div>
     </div>
 
-  <div class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p id="modal-message"></p>
+    
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><p id="modalTitle"></p></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal-message"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+
+
+
+
 
   <script>
     const token = localStorage.getItem('token');
@@ -55,6 +71,7 @@
     const loginButton = document.getElementById("login-button");
     const registerButton = document.getElementById("register-button");
     const modal = document.querySelector('.modal');
+    const modalTitle = document.querySelector('.modalTitle')
     const modalMessage = document.querySelector('#modal-message');
     const closeButton = document.querySelector('.close');
 
@@ -95,8 +112,19 @@
 
     // Function to show the modal dialog
     function showModal(message) {
-    modalMessage.innerText = message;
-        modal.style.display = 'block';
+
+        if(message === "Please fill up the blank!" || message === "Password not match! Please try again ")
+        {
+            modalTitle.innerText = "Alert";
+
+        }else if(message === "Register account successfully"){
+
+            modalTitle.innerText = "Success";
+
+        }
+
+        modalMessage.innerText = message;
+        // modal.style.display = 'block';
     }
 
     // Function to hide the modal dialog
@@ -142,14 +170,14 @@
       registerButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
 
       
-        if(email == "" || username == "" || password == "" || confirmPassword == ""){
+        if(email === "" || username === "" || password === "" || confirmPassword === ""){
 
-            showModal("Please fill up the blank ")
+            showModal("Please fill up the blank!")
             return false;
 
         }else{
 
-            if(password == confirmPassword)
+            if(password === confirmPassword)
             {
               axios.post("https://web-intractive-system-app-api.onrender.com/user/create", {
                 email: email,
