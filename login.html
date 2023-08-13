@@ -38,23 +38,21 @@
       </div>
     </div>
 
-    <div class="modal" tabindex="-1" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="modalBody">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+  <div class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p id="modal-message"></p>
+        </div>
+        <div class="modal-footer">
         </div>
       </div>
     </div>
+  </div>
 
   <script>
     const token = localStorage.getItem('token');
@@ -105,15 +103,10 @@
     signUpButton.onclick = ShowSignUp;
 
     // Function to show the modal dialog
-    function showModal(title, message) {
-    const modalTitle = document.getElementById('modalTitle');
-    const modalBody = document.getElementById('modalBody');
-
-    modalTitle.innerText = title;
-    modalBody.innerText = message;
-
-    modal.style.display = 'block';
-}
+    function showModal(message) {
+    modalMessage.innerText = message;
+        modal.style.display = 'block';
+    }
 
     // Function to hide the modal dialog
     function hideModal() {
@@ -160,7 +153,7 @@
       
         if(email === "" || username === "" || password === "" || confirmPassword === ""){
 
-            showModal("Warning", "Please fill up the blank ")
+            showModal("Please fill up the blank ")
             return false;
 
         }else{
@@ -178,7 +171,7 @@
                 'Content-Type': 'application/json',
               }})
               .then(response => {
-                  showModal("Success", "Register account successfully")
+                  showModal("Register account successfully")
                   // showModal(response.data)
                   window.location.href = 'login.html';
               })
@@ -187,7 +180,7 @@
                   showModal(error.response.data)
               });
             }else{
-                showModal("Error", "Password not match");
+                showModal("Password not match")
                 return false;
             }
 
