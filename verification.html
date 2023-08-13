@@ -95,7 +95,7 @@
 
     function SendCode()
     {
-        axios.post("https://web-interactive-system-app-cms.onrender.com/user/verify/", {
+        axios.post("https://web-intractive-system-app-api.onrender.comuser/verify/", {
             id : decoded_token.userId,
             code : document.getElementById('verification_code').value,
         }, {
@@ -121,7 +121,7 @@
 
     function ResendEmail()
     {
-        axios.post("https://web-interactive-system-app-cms.onrender.com/user/resend_verification/", {
+        axios.post("https://web-intractive-system-app-api.onrender.comuser/resend_verification/", {
             id : decoded_token.userId,
         }, {
             headers: { Authorization: `Bearer ${token}` }
