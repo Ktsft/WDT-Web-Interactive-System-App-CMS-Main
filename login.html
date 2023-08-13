@@ -118,9 +118,7 @@
     // Event listener for the close button
     closeButton.addEventListener('click', () =>{
       hideModal
-      location.reload = () => {
-        ShowSignUp();
-      };
+      location.reload();
     });
     
     loginButton.addEventListener("click", () => {
@@ -194,6 +192,11 @@
         }
 
     });
+
+
+    window.onload = () => {
+      ShowSignUp();
+    };
 
   </script>
 </body>
