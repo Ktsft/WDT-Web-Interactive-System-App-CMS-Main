@@ -288,14 +288,17 @@
         
         function GetRoomList()
         {
+          console.log("im access step 1");
           axios.get("https://web-intractive-system-app-api.onrender.com/room/get", {
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response => {
+              console.log("im access step 2");
               var content = '<table class="table table-striped">';
               content += '<thead><tr><th scope="col">Room ID</th><th scope="col">Room Name</th><th scope="col">Remaining Time</th><th scope="col">Auto Start</th><th colspan="2" scope="col" style="text-align:center">Action</th></tr></thead>';
               for(i = 0; i < response.data.length; i++)
               {
+                  console.log("im access step 3");
                   content += "<tr>";
                   content += "<td>"+response.data[i]['id']+"</td>";
                   content += "<td>"+response.data[i]['room_name']+"</td>";
