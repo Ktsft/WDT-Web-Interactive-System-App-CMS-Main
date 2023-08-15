@@ -85,8 +85,6 @@
         defaultGreeting = defaultGreeting.toString().replace(/!,/g, "!|");
         var decoded_token = jwt_decode(token);
 
-        console.log("this is the restricted word: ". JSON.stringify(restrictedWord));
-        console.log("this is the default greeting: ", JSON.stringify(defaultGreeting));
 
         axios.post("https://web-intractive-system-app-api.onrender.com/room/create", {
           roomName : document.getElementById("roomName").value,
