@@ -210,7 +210,7 @@
 
                     if(document.getElementById("submit_button_img_holder").src == "https://weddingappcms.onrender.com/null")
                     {
-                        document.getElementById("submit_button_img_holder").src = "mobile_send btn.png";
+                        document.getElementById("submit_button_img_holder").src = "Image/mobile_send.png";
 
                         const dataTransfer = new DataTransfer();
                         const myFile = new File(['submit_button'], 'mobile_send btn.png', {
@@ -218,7 +218,7 @@
                         });
                         dataTransfer.items.add(new File());
 
-                        document.getElementById("submit_button_img_holder").src = "mobile_send btn.png";
+                        document.getElementById("submit_button_img_holder").src = "Image/mobile_send.png";
                         document.getElementById("submit_button_img").files = dataTransfer.files;
                     }
                 })
