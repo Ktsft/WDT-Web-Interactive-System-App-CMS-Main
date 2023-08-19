@@ -157,61 +157,28 @@
                 })
                 .then(response => {
 
-                    console.log("this is the submit button: ", response.data['submit_button']);
-
-                    if(response.data['submit_button'] == null){
-                        console.log("i have access because submit_button null");
-                        content += "<br><br><h2>Mobile View Setting</h2>";
-                        content += '<div class="panel panel-default"><table class="table table-sm table-borderless">';
-                        content += '<tr><td>Background Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`background_img`)">X</button><img id="background_img_holder" width=120 height=120 src='+response.data['background_img']+'><input class="form-control form-control-sm" id="background_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="background_img_base64String" value="'+response.data['background_img']+'" type="hidden"/></td></div></tr>';
-                        content += '<tr><td>App Logo Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`app_logo_img`)">X</button><img id="app_logo_img_holder" height=120 src='+response.data['app_logo_img']+'><input class="form-control form-control-sm" id="app_logo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="app_logo_img_base64String" value="'+response.data['app_logo_img']+'" type="hidden"/></td></div></tr>';
-                        content += '<tr><td>Cover Photo Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`cover_photo_img`)">X</button><img id="cover_photo_img_holder" height=120 src='+response.data['cover_photo_img']+'><input class="form-control form-control-sm" id="cover_photo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="cover_photo_img_base64String" value="'+response.data['cover_photo_img']+'" type="hidden"/></td></div></tr>';
-                        content += '<tr><td>Welcome Text Color : </td>';
-                        content += '<td><input id="welcome_text_color" type="color" value="'+response.data['welcome_text_color']+'"></td></tr>';
-                        content += '<tr><td>Name Icon Color : </td>';
-                        content += '<td><input id="name_icon_color" type="color" value="'+response.data['name_icon_color']+'"></td></tr>';
-                        content += '<tr><td>Dropdown Highlight Color : </td>';
-                        content += '<td><input id="dropdown_highlight_color" type="color" value="'+response.data['dropdown_highlight_color']+'"></td></tr>';
-                        content += '<tr><td>Greeting Scroll Background Color : </td>';
-                        content += '<td><input id="greeting_scroll_background_color" type="color" value="'+response.data['greeting_scroll_background_color']+'"></td></tr>';
-                        content += '<tr><td>Submit Button Image : </td>';   
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height=120 src="Image/mobile_send.png"><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" type="hidden"/></td></div></tr>';
-                        content += '</table></div>';
-                        
-                        document.getElementById("content").innerHTML += content;
-
-
-                    }else{
-
-                        content += "<br><br><h2>Mobile View Setting</h2>";
-                        content += '<div class="panel panel-default"><table class="table table-sm table-borderless">';
-                        content += '<tr><td>Background Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`background_img`)">X</button><img id="background_img_holder" width=120 height=120 src='+response.data['background_img']+'><input class="form-control form-control-sm" id="background_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="background_img_base64String" value="'+response.data['background_img']+'" type="hidden"/></td></div></tr>';
-                        content += '<tr><td>App Logo Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`app_logo_img`)">X</button><img id="app_logo_img_holder" height=120 src='+response.data['app_logo_img']+'><input class="form-control form-control-sm" id="app_logo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="app_logo_img_base64String" value="'+response.data['app_logo_img']+'" type="hidden"/></td></div></tr>';
-                        content += '<tr><td>Cover Photo Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`cover_photo_img`)">X</button><img id="cover_photo_img_holder" height=120 src='+response.data['cover_photo_img']+'><input class="form-control form-control-sm" id="cover_photo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="cover_photo_img_base64String" value="'+response.data['cover_photo_img']+'" type="hidden"/></td></div></tr>';
-                        content += '<tr><td>Welcome Text Color : </td>';
-                        content += '<td><input id="welcome_text_color" type="color" value="'+response.data['welcome_text_color']+'"></td></tr>';
-                        content += '<tr><td>Name Icon Color : </td>';
-                        content += '<td><input id="name_icon_color" type="color" value="'+response.data['name_icon_color']+'"></td></tr>';
-                        content += '<tr><td>Dropdown Highlight Color : </td>';
-                        content += '<td><input id="dropdown_highlight_color" type="color" value="'+response.data['dropdown_highlight_color']+'"></td></tr>';
-                        content += '<tr><td>Greeting Scroll Background Color : </td>';
-                        content += '<td><input id="greeting_scroll_background_color" type="color" value="'+response.data['greeting_scroll_background_color']+'"></td></tr>';
-                        content += '<tr><td>Submit Button Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height=120 src='+response.data['submit_button']+'><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" value='+response.data['submit_button']+' type="hidden"/></td></div></tr>';
-                        content += '</table></div>';
-                        
-                        document.getElementById("content").innerHTML += content;
-
-
-                    }
-
+                    content += "<br><br><h2>Mobile View Setting</h2>";
+                    content += '<div class="panel panel-default"><table class="table table-sm table-borderless">';
+                    content += '<tr><td>Background Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`background_img`)">X</button><img id="background_img_holder" width=120 height=120 src='+response.data['background_img']+'><input class="form-control form-control-sm" id="background_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="background_img_base64String" value="'+response.data['background_img']+'" type="hidden"/></td></div></tr>';
+                    content += '<tr><td>App Logo Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`app_logo_img`)">X</button><img id="app_logo_img_holder" height=120 src='+response.data['app_logo_img']+'><input class="form-control form-control-sm" id="app_logo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="app_logo_img_base64String" value="'+response.data['app_logo_img']+'" type="hidden"/></td></div></tr>';
+                    content += '<tr><td>Cover Photo Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`cover_photo_img`)">X</button><img id="cover_photo_img_holder" height=120 src='+response.data['cover_photo_img']+'><input class="form-control form-control-sm" id="cover_photo_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="cover_photo_img_base64String" value="'+response.data['cover_photo_img']+'" type="hidden"/></td></div></tr>';
+                    content += '<tr><td>Welcome Text Color : </td>';
+                    content += '<td><input id="welcome_text_color" type="color" value="'+response.data['welcome_text_color']+'"></td></tr>';
+                    content += '<tr><td>Name Icon Color : </td>';
+                    content += '<td><input id="name_icon_color" type="color" value="'+response.data['name_icon_color']+'"></td></tr>';
+                    content += '<tr><td>Dropdown Highlight Color : </td>';
+                    content += '<td><input id="dropdown_highlight_color" type="color" value="'+response.data['dropdown_highlight_color']+'"></td></tr>';
+                    content += '<tr><td>Greeting Scroll Background Color : </td>';
+                    content += '<td><input id="greeting_scroll_background_color" type="color" value="'+response.data['greeting_scroll_background_color']+'"></td></tr>';
+                    content += '<tr><td>Submit Button Image : </td>';
+                    content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height=120 src='+response.data['submit_button']+'><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" value='+response.data['submit_button']+' type="hidden"/></td></div></tr>';
+                    content += '</table></div>';
                     
+                    document.getElementById("content").innerHTML += content;
+
                     if(document.getElementById("background_img_holder").src == "https://weddingappcms.onrender.com/null")
                     {
                         const dataTransfer = new DataTransfer();
@@ -220,7 +187,7 @@
                         });
                         dataTransfer.items.add(new File());
 
-                        document.getElementById("background_img_holder").src = "Image/bg1.png";
+                        document.getElementById("background_img_holder").src = "bg1.png";
                         document.getElementById("background_img").files = dataTransfer.files;
                     }
 
@@ -242,8 +209,9 @@
                     }
 
                     if(document.getElementById("submit_button_img_holder").src == "https://weddingappcms.onrender.com/null")
-                    {   
-                        document.getElementById("submit_button_img_holder").src = "Image/mobile_send.png";
+                    {
+                        console.log("This is access if mobile_send btn")
+                        document.getElementById("submit_button_img_holder").src = "mobile_send btn.png";
 
                         const dataTransfer = new DataTransfer();
                         const myFile = new File(['submit_button'], 'mobile_send btn.png', {
@@ -251,7 +219,7 @@
                         });
                         dataTransfer.items.add(new File());
 
-                        document.getElementById("submit_button_img_holder").src = "Image/mobile_send.png";
+                        document.getElementById("submit_button_img_holder").src = "mobile_send btn.png";
                         document.getElementById("submit_button_img").files = dataTransfer.files;
                     }
                 })
