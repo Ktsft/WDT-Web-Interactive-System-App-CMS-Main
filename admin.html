@@ -297,26 +297,26 @@
               for(i = 0; i < response.data.length; i++)
               {
                   content += "<tr>";
-                  content += "<td>"+response.data[i]['id']+"</td>";
+                  content += "<td>"+response.data[i]['ids']+"</td>";
                   content += "<td>"+response.data[i]['room_name']+"</td>";
                   remainingDuration = secondsToHHMMSS(response.data[i]['end_date'] - Math.floor(Date.now() / 1000));
 
                   content += "<td class='remainingDuration'>"+remainingDuration+"</td>";
-                  //content += `<td><button class="btn btn-outline-danger" onclick="showModal4(`+response.data[i]['id']+`, '`+response.data[i]['room_name']+`')"><i class="fa fa-clock-o"></i></button></td>`;
+                  //content += `<td><button class="btn btn-outline-danger" onclick="showModal4(`+response.data[i]['ids']+`, '`+response.data[i]['room_name']+`')"><i class="fa fa-clock-o"></i></button></td>`;
                 
                   if(response.data[i]['room_status'] == 0)
                   {
-                    content += '<td><div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" onchange="ToggleRoomStatus('+response.data[i]['id']+')" id="switch_'+response.data[i]['id']+'"><label class="custom-control-label" for="switch_'+response.data[i]['id']+'"></label></div></td>';
+                    content += '<td><div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" onchange="ToggleRoomStatus('+response.data[i]['ids']+')" id="switch_'+response.data[i]['ids']+'"><label class="custom-control-label" for="switch_'+response.data[i]['ids']+'"></label></div></td>';
                   }
                   else
                   {
                     if(response.data[i]['end_date'] <= Math.floor(Date.now() / 1000))
                     {
-                      axios.post("https://web-intractive-system-app-api.onrender.com/room/toggle/"+response.data[i]['id'], {}, {
+                      axios.post("https://web-intractive-system-app-api.onrender.com/room/toggle/"+response.data[i]['ids'], {}, {
                         headers: { Authorization: `Bearer ${token}` }
                       })
                       .then(response => {
-                        content += '<td><div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" onchange="ToggleRoomStatus('+response.data[i]['id']+')" id="switch_'+response.data[i]['id']+'"><label class="custom-control-label" for="switch_'+response.data[i]['id']+'"></label></div></td>';
+                        content += '<td><div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" onchange="ToggleRoomStatus('+response.data[i]['ids']+')" id="switch_'+response.data[i]['ids']+'"><label class="custom-control-label" for="switch_'+response.data[i]['ids']+'"></label></div></td>';
                       })
                       .catch(error => {
                           console.log(error);
@@ -324,14 +324,14 @@
                     }
                     else
                     {
-                      content += '<td><div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" onchange="ToggleRoomStatus('+response.data[i]['id']+')" checked id="switch_'+response.data[i]['id']+'"><label class="custom-control-label" for="switch_'+response.data[i]['id']+'"></label></div></td>';
+                      content += '<td><div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" onchange="ToggleRoomStatus('+response.data[i]['ids']+')" checked id="switch_'+response.data[i]['ids']+'"><label class="custom-control-label" for="switch_'+response.data[i]['ids']+'"></label></div></td>';
                     }
                   }
 
                   content += '<td>';
-                  content +='<button class="btn btn-outline-secondary" onclick="GetRoomSetting('+response.data[i]['id']+')"><i class="fa fa-gear"></i></button> &nbsp';
-                  content +='<button class="btn btn-outline-primary" onclick="GetGreeting('+response.data[i]['id']+')"><i class="fa fa-book"></i></button> &nbsp';
-                  content += `<button class="btn btn-outline-danger" onclick="showModal4(`+response.data[i]['id']+`, '`+response.data[i]['room_name']+`')"><i class="fa fa-trash"></i></button> &nbsp`;
+                  content +='<button class="btn btn-outline-secondary" onclick="GetRoomSetting('+response.data[i]['ids']+')"><i class="fa fa-gear"></i></button> &nbsp';
+                  content +='<button class="btn btn-outline-primary" onclick="GetGreeting('+response.data[i]['ids']+')"><i class="fa fa-book"></i></button> &nbsp';
+                  content += `<button class="btn btn-outline-danger" onclick="showModal4(`+response.data[i]['ids']+`, '`+response.data[i]['room_name']+`')"><i class="fa fa-trash"></i></button> &nbsp`;
                   content +='<a href="'+response.data[i]['qr_code']+'" download="qr_code"><button class="btn btn-outline-secondary"><i class="fa fa-qrcode"></i></button></a>';
                   content += '</td>';
                   content += "</tr>";
