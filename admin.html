@@ -42,6 +42,9 @@
       <div id="dashboard_content">
 
       </div>
+      <div id="pagination" class="mt-3">
+        <!-- Pagination links will be added here -->
+      </div>
     </div>
 
     <div id="error-modal" class="modal" tabindex="-1" role="dialog">
@@ -288,17 +291,27 @@
         
         function GetRoomList()
         {
-          console.log("im access step 1");
           axios.get("https://web-intractive-system-app-api.onrender.com/room/get", {
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response => {
-              console.log("im access step 2");
+
+              const itemsPerPage = 10; // Number of items to display per page
+              let currentPage = 1; // Current active page
+
+              // Your data and content generation logic here
+              const totalPages = Math.ceil(response.data.length / itemsPerPage);
+              generateContent(currentPage); // Call your initial content generation function
+              generatePagination(totalPages);
+              // const totalRows = response.data.length;
+              // const totalPages = Math.ceil(totalRows / rowsPerPage);
+              // const startIndex = (currentPage - 1) * rowsPerPage;
+              // const endIndex = startIndex + rowsPerPage;
+
               var content = '<table class="table table-striped">';
               content += '<thead><tr><th scope="col">Room ID</th><th scope="col">Room Name</th><th scope="col">Remaining Time</th><th scope="col">Activate Room</th><th colspan="2" scope="col" style="text-align:center">Action</th></tr></thead>';
               for(i = 0; i < response.data.length; i++)
               {
-                  console.log("im access step 3");
                   content += "<tr>";
                   content += "<td>"+response.data[i]['id']+"</td>";
                   content += "<td>"+response.data[i]['room_name']+"</td>";
@@ -339,8 +352,7 @@
                   content += '</td>';
                   content += "</tr>";
               }
-              content += "</table>";
-              dashboard_content.innerHTML = content;
+
               updateCountdown();
           })
           .catch(error => {
@@ -348,6 +360,30 @@
               console.log(error);
           });
         }
+
+
+        function generatePagination(totalPages) {
+          const paginationDiv = document.getElementById('pagination');
+          paginationDiv.innerHTML = '';
+
+          for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.href = '#';
+            pageLink.textContent = i;
+            pageLink.addEventListener('click', () => loadPage(i));
+            paginationDiv.appendChild(pageLink);
+          }
+        }
+
+
+        function loadPage(page) {
+          currentPage = page;
+          generateContent(currentPage); // Call your content generation function
+          // You might also update some styles to indicate the active page
+        }
+        
+          
+
 
         function ShowCreateRoomModal()
         {
