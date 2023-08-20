@@ -156,8 +156,6 @@
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 .then(response => {
-                        const submitButtonDataUrl = 'data:image/png;base64,' + response.data['submit_button'];
-
                         content += "<br><br><h2>Mobile View Setting</h2>";
                         content += '<div class="panel panel-default"><table class="table table-sm table-borderless">';
                         content += '<tr><td>Background Image : </td>';
@@ -175,7 +173,7 @@
                         content += '<tr><td>Greeting Scroll Background Color : </td>';
                         content += '<td><input id="greeting_scroll_background_color" type="color" value="'+response.data['greeting_scroll_background_color']+'"></td></tr>';
                         content += '<tr><td>Submit Button Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height="120" src="'+response.data['greeting_scroll_background_color']+'"><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" value='+response.data['submit_button']+' type="hidden"/></td></div></tr>';
+                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height="120" src="'+response.data['submit_button']+'"><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" value='+response.data['submit_button']+' type="hidden"/></td></div></tr>';
                         content += '</table></div>';
                         
                         document.getElementById("content").innerHTML += content;
