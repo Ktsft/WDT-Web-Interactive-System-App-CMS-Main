@@ -176,7 +176,7 @@
                         content += '<tr><td>Greeting Scroll Background Color : </td>';
                         content += '<td><input id="greeting_scroll_background_color" type="color" value="'+response.data['greeting_scroll_background_color']+'"></td></tr>';
                         content += '<tr><td>Submit Button Image : </td>';
-                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height=120 src='+imageDataUrl +'><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" value='+response.data['submit_button']+' type="hidden"/></td></div></tr>';
+                        content += '<td><div class="mb-3"><button class="btn btn-outline-danger" onclick="RemoveImg(`submit_button_img`)">X</button><img id="submit_button_img_holder" height=120 src="https://github.com/Ktsft/WDT-Web-Interactive-System-App-CMS-Main/blob/main/Image/mobile_send.png"><input class="form-control form-control-sm" id="submit_button_img" type="file" accept="image/png, image/jpeg" onchange="displayUploadedImage(this)" style="width:50%; display: inline-block;"><input id="submit_button_img_base64String" value='+response.data['submit_button']+' type="hidden"/></td></div></tr>';
                         content += '</table></div>';
                         
                         document.getElementById("content").innerHTML += content;
