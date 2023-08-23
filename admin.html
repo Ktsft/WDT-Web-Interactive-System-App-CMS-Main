@@ -40,8 +40,13 @@
         </nav>
       </div>
       <div id="dashboard_content">
-
       </div>
+      <nav aria-label="Page navigation">
+        <ul id="pagination" class="pagination">
+
+        </ul>
+      </nav>
+      
     </div>
 
     <div id="error-modal" class="modal" tabindex="-1" role="dialog">
@@ -216,10 +221,11 @@
               window.location.href = 'login.html';
             }
             welcome_message.innerHTML = '<a class="nav-link" href="javascript:void(0)" onclick="GetUserInfo()">'+decoded_token.username+'</a>';
-            GetRoomList();
+            GetRoomList(1);
           }
         }
         //end of main
+
 
         function Logout()
         {
@@ -286,12 +292,23 @@
           window.location.href = 'admin.html';
         }
 
-        function GetRoomList()
+      
+        
+
+     
+        function GetRoomList(page)
         {
+          
           axios.get("https://web-intractive-system-app-api.onrender.com/room/get", {
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response => {
+
+            const itemsPerPage = 10; // Adjust as needed
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            
+
               var content = '<table class="table table-striped">';
               content += '<thead><tr><th scope="col">Room ID</th><th scope="col">Room Name</th><th scope="col">Remaining Time</th><th scope="col">Auto Start</th><th colspan="2" scope="col" style="text-align:center">Action</th></tr></thead>';
               for(i = 0; i < response.data.length; i++)
@@ -338,6 +355,7 @@
               }
               content += "</table>";
               dashboard_content.innerHTML = content;
+              updatePagination(response.data.length, page);
               updateCountdown();
           })
           .catch(error => {
@@ -345,6 +363,38 @@
               console.log(error);
           });
         }
+
+
+        function updatePagination(totalItems, currentPage)
+        {
+           const itemsPerPage = 10;
+           const totalPage = Math.ceil(totalItems / itemsPerPage);
+           let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination">';
+
+            if (currentPage > 1) {
+              paginationHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a></li>`;
+            }
+
+
+            for (let i = 1; i <= totalPages; i++) {
+              if (i === currentPage) {
+                paginationHTML += `<li class="page-item active"><a class="page-link">${i}</a></li>`;
+              } else {
+                paginationHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+              }
+            }
+
+            if (currentPage < totalPages) {
+              paginationHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a></li>`;
+            }
+            
+            paginationHTML += '</ul></nav>';
+            document.getElementById('pagination').innerHTML = paginationHTML;
+
+
+        }
+
+
 
         function ShowCreateRoomModal()
         {
