@@ -312,7 +312,7 @@
               for(let i = startIndex; i < Math.min(endIndex, response.data.length); i++)
               {
                   content += "<tr>";
-                  content += "<td>"+response.data[i]['ids']+"</td>";
+                  content += "<td>"+response.data[i]['id']+"</td>";
                   content += "<td>"+response.data[i]['room_name']+"</td>";
                   remainingDuration = secondsToHHMMSS(response.data[i]['end_date'] - Math.floor(Date.now() / 1000));
 
