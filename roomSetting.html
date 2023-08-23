@@ -152,7 +152,7 @@
                     break;
             }
 
-            axios.get("https://web-intractive-system-app-api.onrender.com/roomSetting/get/"+room_id, {
+            axios.post("https://web-intractive-system-app-api.onrender.com/roomSetting/get/"+room_id, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 .then(response => {
