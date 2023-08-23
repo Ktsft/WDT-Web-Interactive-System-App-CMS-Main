@@ -171,6 +171,7 @@
 
     <script>
         const dashboard_content = document.getElementById("dashboard_content");
+        const pagination = document.getElementById("pagination");
         const welcome_message = document.getElementById("welcome_message");
         const token = localStorage.getItem('token');
 
@@ -364,6 +365,7 @@
 
         function updatePagination(totalItems, currentPage)
         {
+            console.log("i have access the totalItems: ", totalItems);
            const itemsPerPage = 10;
            const totalPage = Math.ceil(totalItems / itemsPerPage);
            let paginationHTML = '<nav aria-label="Page navigation example"><ul class="pagination">';
@@ -386,8 +388,7 @@
             }
             
             paginationHTML += '</ul></nav>';
-            document.getElementById('pagination').innerHTML = paginationHTML;
-
+            pagination.innerHTML = paginationHTML;
 
         }
 
