@@ -261,24 +261,24 @@
         headers: { Authorization: `Bearer ${token}` }
         })
              .then(response => {
-                axios.post("https://web-intractive-system-app-api.onrender.com/roomSetting/update/"+room_id, {
-                    backgroundImg : document.getElementById("background_img_base64String").value,
-                    appLogoImg : document.getElementById("app_logo_img_base64String").value,
-                    coverPhotoImg : document.getElementById("cover_photo_img_base64String").value,
-                    welcomeTextColor : document.getElementById("welcome_text_color").value,
-                    nameIconColor : document.getElementById("name_icon_color").value,
-                    dropdownHighlightColor : document.getElementById("dropdown_highlight_color").value,
-                    greetingScrollBackgroundColor : document.getElementById("greeting_scroll_background_color").value,
-                    submitButton : document.getElementById("submit_button_img_base64String").value,
-                }, {
-                headers: { Authorization: `Bearer ${token}` }
-                })
-                    .then(response2 => {
-                        window.parent.hideModal();
-                })
-                    .catch(error => {
-                    console.log(error);
-                });
+                // axios.post("https://web-intractive-system-app-api.onrender.com/roomSetting/update/"+room_id, {
+                //     backgroundImg : document.getElementById("background_img_base64String").value,
+                //     appLogoImg : document.getElementById("app_logo_img_base64String").value,
+                //     coverPhotoImg : document.getElementById("cover_photo_img_base64String").value,
+                //     welcomeTextColor : document.getElementById("welcome_text_color").value,
+                //     nameIconColor : document.getElementById("name_icon_color").value,
+                //     dropdownHighlightColor : document.getElementById("dropdown_highlight_color").value,
+                //     greetingScrollBackgroundColor : document.getElementById("greeting_scroll_background_color").value,
+                //     submitButton : document.getElementById("submit_button_img_base64String").value,
+                // }, {
+                // headers: { Authorization: `Bearer ${token}` }
+                // })
+                //     .then(response2 => {
+                //         window.parent.hideModal();
+                // })
+                //     .catch(error => {
+                //     console.log(error);
+                // });
         })
              .catch(error => {
              console.log(error);
