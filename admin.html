@@ -439,6 +439,7 @@
 
         function GetRoomSetting(room_id)
         {
+          console.log("this is get room settings: ", room_id);
           var content = '<iframe id="iframe1" width="1100" height="600" frameborder="0" src="roomSetting.html?room_id='+room_id+'">';
           showModal1(content);
         }
