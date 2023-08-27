@@ -314,12 +314,10 @@
 
 <script>
     $(function () {
-        $('#datetimepicker_start').datetimepicker({
-            todayHighlight: true,
-            format: 'dd/mm/yyyy',
-            startDate: new Date()   
-        });
+        $("#datetimepicker_start").each(function () {
+        $(this).datetimepicker();
+      });
         // $('#datetimepicker_start').datetimepicker();
-        $('#datetimepicker_end').datetimepicker();
+        // $('#datetimepicker_end').datetimepicker();
     });
 </script>
